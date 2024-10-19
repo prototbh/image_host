@@ -1,92 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Discord Video Embedder">
-  <meta property="og:description" content="Simple tool for embedding videos into Discord.">
-  <title>Discord Embedder Tool</title>
-
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 2rem;
-    }
-    input, button {
-      padding: 0.5rem;
-      margin: 0.5rem;
-      width: 80%;
-      max-width: 500px;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    .hidden {
-      display: none;
-    }
-    video {
-      margin-top: 2rem;
-      max-width: 90%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Your Website Title" />
+    <meta property="og:description" content="This is a simple description of your website." />
+    <meta property="og:image" content="URL_to_your_image" />
+    <meta property="og:url" content="Your_website_url" />
+    
+    <title>Black and Red Motion Background</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            animation: fade 4s infinite alternate;
+        }
+        @keyframes fade {
+            0% {
+                background-color: red;
+            }
+            100% {
+                background-color: black;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<h1>Discord Video Embedder</h1>
-<p>Use this tool to generate video URLs for embedding into Discord.</p>
-
-<label for="inputVideo">Link to video file:</label><br>
-<input id="inputVideo" type="text" placeholder="Enter direct video URL"><br>
-
-<label for="inputImage">Optional: Link to image (thumbnail):</label><br>
-<input id="inputImage" type="text" placeholder="Enter optional image URL"><br>
-
-<button id="generateBtn">Generate Embed Link</button>
-
-<p id="outputUrl" class="hidden"></p>
-<video id="previewVideo" class="hidden" controls preload="none">
-  <source id="videoSource" src="" type="video/mp4">
-</video>
-
-<script>
-  const generateBtn = document.getElementById('generateBtn');
-  const inputVideo = document.getElementById('inputVideo');
-  const inputImage = document.getElementById('inputImage');
-  const outputUrl = document.getElementById('outputUrl');
-  const previewVideo = document.getElementById('previewVideo');
-  const videoSource = document.getElementById('videoSource');
-
-  function generateEmbedUrl() {
-    const videoUrl = inputVideo.value;
-    const imageUrl = inputImage.value || '';
-
-    if (!videoUrl) {
-      alert('Please enter a valid video URL');
-      return;
-    }
-
-    const embedUrl = `${window.location.href}?v=${encodeURIComponent(videoUrl)}${imageUrl ? '&i=' + encodeURIComponent(imageUrl) : ''}`;
-    
-    outputUrl.textContent = `Embed URL: ${embedUrl}`;
-    outputUrl.classList.remove('hidden');
-    
-    videoSource.src = videoUrl;
-    previewVideo.classList.remove('hidden');
-    previewVideo.load();
-  }
-
-  generateBtn.addEventListener('click', generateEmbedUrl);
-</script>
-
+    <div class="background"></div>
 </body>
 </html>
