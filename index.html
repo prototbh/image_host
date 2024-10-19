@@ -3,13 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Your Website Title</title>
-    <meta property="og:title" content="Your Website Title" />
-    <meta property="og:description" content="This video is hosted on my website." />
-    <meta property="og:url" content="https://prototbh.github.io/image_host/" />
-    <meta property="og:video" content="" id="og-video" /> <!-- This will be updated dynamically -->
-
+    
+    <title>Black and Red Motion Background</title>
     <style>
         body {
             margin: 0;
@@ -28,6 +23,7 @@
             width: 100%;
             height: 100%;
             animation: fade 4s infinite alternate;
+            z-index: 1;
         }
         @keyframes fade {
             0% {
@@ -37,42 +33,50 @@
                 background-color: black;
             }
         }
-        .video-container {
-            position: relative;
-            z-index: 1; /* Ensures video is above the background */
-        }
         iframe {
-            width: 560px;
-            height: 315px;
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            height: 80%;
             border: none;
-            display: none; /* Hidden by default */
         }
     </style>
 </head>
 <body>
     <div class="background"></div>
-    <div class="video-container">
-        <iframe id="video-iframe" src="" allowfullscreen></iframe>
-    </div>
-
+    
     <script>
-        // Function to get URL parameters
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
+        // Get the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoUrl = urlParams.get('v');
+
+        // Function to add Open Graph meta tags (without an image)
+        function addMetaTags() {
+            const metaTitle = document.createElement('meta');
+            metaTitle.setAttribute('property', 'og:title');
+            metaTitle.setAttribute('content', 'ughhhhhh');
+
+            const metaDescription = document.createElement('meta');
+            metaDescription.setAttribute('property', 'og:description');
+            metaDescription.setAttribute('content', 'A simple website for embedding videos dynamically.');
+
+            const metaUrl = document.createElement('meta');
+            metaUrl.setAttribute('property', 'og:url');
+            metaUrl.setAttribute('content', 'https://prototbh.github.io/image_host/');
+
+            document.head.appendChild(metaTitle);
+            document.head.appendChild(metaDescription);
+            document.head.appendChild(metaUrl);
         }
 
-        const videoUrl = getQueryParam('v');
-        const iframe = document.getElementById('video-iframe');
-        const ogVideo = document.getElementById('og-video');
-
-        if (videoUrl) {
-            // Set the iframe src to the video URL
-            iframe.src = videoUrl; // Directly use the video URL as the src
-            iframe.style.display = 'block'; // Show the iframe
-
-            // Update Open Graph video meta tag
-            ogVideo.setAttribute('content', videoUrl);
+        // If no video URL is provided (base URL), add Open Graph meta tags
+        if (!videoUrl) {
+            addMetaTags();
+        } else {
+            // If a video URL is provided, create an iframe to display it
+            const iframe = document.createElement('iframe');
+            iframe.src = videoUrl;
+            document.body.appendChild(iframe);
         }
     </script>
 </body>
