@@ -1,69 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Black and Red Motion Background</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            height: 100vh;
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            animation: fade 4s infinite alternate;
-            z-index: 1;
-        }
-        @keyframes fade {
-            0% {
-                background-color: red;
-            }
-            100% {
-                background-color: black;
-            }
-        }
-        iframe {
-            position: relative;
-            z-index: 2;
-            width: 80%;
-            height: 80%;
-            border: none;
-        }
-    </style>
+  <meta charset="utf-8">
+  <title>Discord Video Embedder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://prototbh.github.io/image_host/" />
+  <meta property="og:image" content="/heart.png" />
+  <meta property="og:description" content="Simple tool to embed videos directly into Discord." />
+  <meta property="og:title" content="Discord Video Embedder" />
+
+  <style>
+    body {
+      min-height: 100vh;
+      font-family: sans-serif;
+      background: black;
+      color: white;
+      padding: 20px;
+    }
+    input[type="text"], input[type="submit"] {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+    }
+    video {
+      max-width: 100%;
+      max-height: 80vh;
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
 </head>
 <body>
-    <div class="background"></div>
-    
-    <script>
-        // Get the URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const videoUrl = urlParams.get('v');
+  <h1>Embed Video for Discord</h1>
+  <form id="videoForm">
+    <label for="videoLink">Link to video file you want to play in Discord:</label>
+    <input id="videoLink" type="text" name="video" placeholder="Enter your video link" required>
 
-        // If a video URL is provided, create an iframe to display it
-        if (videoUrl) {
-            const iframe = document.createElement('iframe');
-            iframe.src = videoUrl;
-            document.body.appendChild(iframe);
-        }
+    <input type="submit" value="Generate Link">
+  </form>
 
-        // Set up the metadata for Discord embed
-        if (videoUrl) {
-            const meta = document.createElement('meta');
-            meta.setAttribute('property', 'og:url');
-            meta.content = videoUrl;
-            document.head.appendChild(meta);
-        }
-    </script>
+  <div id="result" style="display:none;">
+    <h2>Your Discord Link:</h2>
+    <pre id="discordLink"></pre>
+    <video id="previewVideo" controls></video>
+  </div>
+
+  <script>
+    const form = document.getElementById('videoForm');
+    const discordLinkElement = document.getElementById('discordLink');
+    const resultDiv = document.getElementById('result');
+    const previewVideo = document.getElementById('previewVideo');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const videoUrl = document.getElementById('videoLink').value;
+
+      // Update the Discord link
+      const discordLink = `https://prototbh.github.io/image_host/?v=${encodeURIComponent(videoUrl)}`;
+      discordLinkElement.innerText = discordLink;
+
+      // Update the video preview
+      previewVideo.src = videoUrl;
+      previewVideo.load();
+      previewVideo.play();
+
+      // Show the result
+      resultDiv.style.display = 'block';
+    });
+  </script>
 </body>
 </html>
