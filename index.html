@@ -1,72 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Discord Video Embedder</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta property="og:type" content="video.other" />
-  <meta property="og:url" content="https://prototbh.github.io/image_host/" />
-  <meta property="og:description" content="Simple tool to embed videos directly into Discord." />
-  <meta property="og:title" content="Discord Video Embedder" />
-
-  <style>
-    body {
-      min-height: 100vh;
-      font-family: sans-serif;
-      background: black;
-      color: white;
-      padding: 20px;
-    }
-    input[type="text"], input[type="submit"] {
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-    }
-    video {
-      max-width: 100%;
-      max-height: 80vh;
-      display: block;
-      margin: 20px auto;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Force Discord to embed any MP4 or MOV video.">
+    <title>Discord Video Embed Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #7289da;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+        a {
+            color: #7289da;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-  <h1>Embed Video for Discord</h1>
-  <form id="videoForm">
-    <label for="videoLink">Link to video file you want to play in Discord:</label>
-    <input id="videoLink" type="text" name="video" placeholder="Enter your video link" required>
+    <h1>Discord Video Embed Tool</h1>
+    <form id="videoForm">
+        <input type="text" id="videoUrl" placeholder="Enter direct MP4 or MOV video URL" required>
+        <input type="submit" value="Generate Embed Link">
+    </form>
+    <div id="result">
+        <h2>Share this link to embed the video:</h2>
+        <a id="embedLink" href="#" target="_blank"></a>
+    </div>
 
-    <input type="submit" value="Generate Link">
-  </form>
-
-  <div id="result" style="display:none;">
-    <h2>Your Discord Link:</h2>
-    <pre id="discordLink"></pre>
-    <video id="previewVideo" controls></video>
-  </div>
-
-  <script>
-    const form = document.getElementById('videoForm');
-    const discordLinkElement = document.getElementById('discordLink');
-    const resultDiv = document.getElementById('result');
-    const previewVideo = document.getElementById('previewVideo');
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const videoUrl = document.getElementById('videoLink').value;
-
-      // Update the Discord link
-      const discordLink = `https://prototbh.github.io/image_host/?v=${encodeURIComponent(videoUrl)}`;
-      discordLinkElement.innerText = discordLink;
-
-      // Update the video preview
-      previewVideo.src = videoUrl;
-      previewVideo.load();
-      
-      // Show the result
-      resultDiv.style.display = 'block';
-    });
-  </script>
+    <script>
+        document.getElementById('videoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const url = document.getElementById('videoUrl').value;
+            const embedLink = document.getElementById('embedLink');
+            const result = document.getElementById('result');
+            
+            if (url.endsWith('.mp4') || url.endsWith('.mov')) {
+                embedLink.href = `https://prototbh.github.io/image_host/?video=${encodeURIComponent(url)}`;
+                embedLink.textContent = embedLink.href;
+                result.style.display = 'block';
+            } else {
+                alert('Please enter a valid MP4 or MOV video URL.');
+                result.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
