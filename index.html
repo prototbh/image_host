@@ -4,14 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Your Website Title" />
-    <meta property="og:description" content="This is a simple description of your website." />
-    <meta property="og:image" content="URL_to_your_image" />
-    <meta property="og:url" content="Your_website_url" />
-    <meta property="og:video" content="" id="og-video" /> <!-- This will be updated dynamically -->
-    
-    <title>Black and Red Motion Background</title>
+    <title>Dynamic Video Embed</title>
     <style>
         body {
             margin: 0;
@@ -66,15 +59,33 @@
 
         const videoUrl = getQueryParam('v');
         const iframe = document.getElementById('video-iframe');
-        const ogVideo = document.getElementById('og-video');
 
         if (videoUrl) {
             // Set the iframe src to the video URL
             iframe.src = videoUrl;
             iframe.style.display = 'block'; // Show the iframe
 
-            // Update Open Graph video meta tag
+            // Dynamically create Open Graph meta tags
+            const ogTitle = document.createElement('meta');
+            ogTitle.setAttribute('property', 'og:title');
+            ogTitle.setAttribute('content', 'Video Embed');
+            document.head.appendChild(ogTitle);
+
+            const ogDescription = document.createElement('meta');
+            ogDescription.setAttribute('property', 'og:description');
+            ogDescription.setAttribute('content', 'Watch this video on our site!');
+            document.head.appendChild(ogDescription);
+
+            const ogVideo = document.createElement('meta');
+            ogVideo.setAttribute('property', 'og:video');
             ogVideo.setAttribute('content', videoUrl);
+            document.head.appendChild(ogVideo);
+
+            // Optionally, set an og:image from a video thumbnail if available
+            const ogImage = document.createElement('meta');
+            ogImage.setAttribute('property', 'og:image');
+            ogImage.setAttribute('content', 'URL_to_thumbnail_image'); // Change this to a valid thumbnail URL
+            document.head.appendChild(ogImage);
         }
     </script>
 </body>
