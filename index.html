@@ -56,6 +56,14 @@
             iframe.src = videoUrl;
             document.body.appendChild(iframe);
         }
+
+        // Set up the metadata for Discord embed
+        if (videoUrl) {
+            const meta = document.createElement('meta');
+            meta.setAttribute('property', 'og:url');
+            meta.content = videoUrl;
+            document.head.appendChild(meta);
+        }
     </script>
 </body>
 </html>
