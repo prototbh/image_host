@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Your Website Title" />
     <meta property="og:description" content="This is a simple description of your website." />
     <meta property="og:image" content="URL_to_your_image" />
     <meta property="og:url" content="Your_website_url" />
+    <meta property="og:video" content="" id="og-video" /> <!-- This will be updated dynamically -->
     
     <title>Black and Red Motion Background</title>
     <style>
@@ -20,6 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         .background {
             position: absolute;
@@ -37,9 +39,43 @@
                 background-color: black;
             }
         }
+        .video-container {
+            position: relative;
+            z-index: 1; /* Ensures video is above the background */
+        }
+        iframe {
+            width: 560px;
+            height: 315px;
+            border: none;
+            display: none; /* Hidden by default */
+        }
     </style>
 </head>
 <body>
     <div class="background"></div>
+    <div class="video-container">
+        <iframe id="video-iframe" src="" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const videoUrl = getQueryParam('v');
+        const iframe = document.getElementById('video-iframe');
+        const ogVideo = document.getElementById('og-video');
+
+        if (videoUrl) {
+            // Set the iframe src to the video URL
+            iframe.src = videoUrl;
+            iframe.style.display = 'block'; // Show the iframe
+
+            // Update Open Graph video meta tag
+            ogVideo.setAttribute('content', videoUrl);
+        }
+    </script>
 </body>
 </html>
