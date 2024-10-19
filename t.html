@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Tool for embedding videos into Discord." />
+  <meta property="og:title" content="Discord Video Embedder" />
+  <title>Discord Video Embedder</title>
+  <script>
+    function generateEmbedURL() {
+      const videoLink = encodeURIComponent(document.getElementById('video').value);
+      const imageLink = encodeURIComponent(document.getElementById('image').value);
+
+      const domain = window.location.origin;  // Gets the domain of the page
+      let embedURL = `${domain}/?v=${videoLink}`;
+      
+      if (imageLink) {
+        embedURL += `&i=${imageLink}`;
+      }
+
+      // Display the generated URL
+      document.getElementById('result').innerText = embedURL;
+    }
+  </script>
+</head>
+<body>
+  <h1>Discord Video Embedder</h1>
+  <p>Enter the direct link to the video you want to embed:</p>
+  <input type="text" id="video" placeholder="Video URL" required>
+  
+  <p>Optional: Enter a direct link to an image to show as a preview:</p>
+  <input type="text" id="image" placeholder="Image URL (optional)">
+
+  <p><button onclick="generateEmbedURL()">Generate Embed URL</button></p>
+
+  <h3>Generated URL:</h3>
+  <p id="result"></p>
+</body>
+</html>
