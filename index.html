@@ -5,9 +5,8 @@
   <title>Discord Video Embedder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="video.other" />
   <meta property="og:url" content="https://prototbh.github.io/image_host/" />
-  <meta property="og:image" content="/heart.png" />
   <meta property="og:description" content="Simple tool to embed videos directly into Discord." />
   <meta property="og:title" content="Discord Video Embedder" />
 
@@ -64,8 +63,7 @@
       // Update the video preview
       previewVideo.src = videoUrl;
       previewVideo.load();
-      previewVideo.play();
-
+      
       // Show the result
       resultDiv.style.display = 'block';
     });
