@@ -6,9 +6,9 @@
 
     <title>Your Website Title</title>
     <meta property="og:title" content="Your Website Title" />
-    <meta property="og:description" content="This is a simple description of your website." />
-    <meta property="og:image" content="URL_to_your_image" /> <!-- Change this to a valid image URL -->
-    <meta property="og:url" content="https://yourdomain.com/" /> <!-- Change this to your actual domain -->
+    <meta property="og:description" content="This video is hosted on my website." />
+    <meta property="og:url" content="https://prototbh.github.io/image_host/" />
+    <meta property="og:video" content="" id="og-video" /> <!-- This will be updated dynamically -->
 
     <style>
         body {
@@ -64,16 +64,15 @@
 
         const videoUrl = getQueryParam('v');
         const iframe = document.getElementById('video-iframe');
+        const ogVideo = document.getElementById('og-video');
 
         if (videoUrl) {
             // Set the iframe src to the video URL
             iframe.src = videoUrl;
             iframe.style.display = 'block'; // Show the iframe
 
-            // Update Open Graph meta tags dynamically
-            document.querySelector('meta[property="og:title"]').setAttribute('content', 'Your Website Title');
-            document.querySelector('meta[property="og:description"]').setAttribute('content', 'This is a simple description of your website.');
-            document.querySelector('meta[property="og:video"]').setAttribute('content', videoUrl);
+            // Update Open Graph video meta tag
+            ogVideo.setAttribute('content', videoUrl);
         }
     </script>
 </body>
