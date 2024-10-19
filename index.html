@@ -50,30 +50,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const videoUrl = urlParams.get('v');
 
-        // Function to add Open Graph meta tags (without an image)
-        function addMetaTags() {
-            const metaTitle = document.createElement('meta');
-            metaTitle.setAttribute('property', 'og:title');
-            metaTitle.setAttribute('content', 'ughhhhhh');
-
-            const metaDescription = document.createElement('meta');
-            metaDescription.setAttribute('property', 'og:description');
-            metaDescription.setAttribute('content', 'A simple website for embedding videos dynamically.');
-
-            const metaUrl = document.createElement('meta');
-            metaUrl.setAttribute('property', 'og:url');
-            metaUrl.setAttribute('content', 'https://prototbh.github.io/image_host/');
-
-            document.head.appendChild(metaTitle);
-            document.head.appendChild(metaDescription);
-            document.head.appendChild(metaUrl);
-        }
-
-        // If no video URL is provided (base URL), add Open Graph meta tags
-        if (!videoUrl) {
-            addMetaTags();
-        } else {
-            // If a video URL is provided, create an iframe to display it
+        // If a video URL is provided, create an iframe to display it
+        if (videoUrl) {
             const iframe = document.createElement('iframe');
             iframe.src = videoUrl;
             document.body.appendChild(iframe);
